@@ -69,5 +69,38 @@ for i = 0...N
         f[i][v] = max{f[i][v], cur}
 ```
 ### 方法二
-转换成二进制思想。例如：10 = 1+2+4+3，当背包大小为10时，可以分解成1,2,4,3四个数的和，所以只判断四个数就行，而不需要判断0到10所有的数。
+转换成二进制思想。例如：10 = 1+2+4+3，当amount等于10时，可以分解成1,2,4,3四个数的和，这四个数可以组成1到10的所有情况。
+```
+//01背包伪代码
+zero_one_pack(cost, weight)
+{
+  for(v = V; v >= cost[i]; --v)
+    f[v] = max{f[v], f[v-cost]+weight}
+}
 
+//完全背包伪代码
+complete_pack(cost, weight)
+{
+  for(v = cost; v <= weight; v++)
+    f[v] = max{f[v-1], f[v-cost]+weight
+}
+
+multiple_pack(cost, weight, amount)
+{
+  if(cost * amount  >= V)
+    complete_pack(cost, weight);
+    return;
+  int k = 1;
+  max = amount;
+  while(k < max){
+    zero_one_pack(k*cost, k*weight);
+    max -= k;
+    k *= 2;
+  }
+  zero_one_pack(max*cost, max*weight);
+}
+
+for(i = 0; i < n; i++)
+  multiple_pack(cost[i], weight[i], n[i]);
+return f[V];
+```
