@@ -82,7 +82,7 @@ zero_one_pack(cost, weight)
 complete_pack(cost, weight)
 {
   for(v = cost; v <= weight; v++)
-    f[v] = max{f[v-1], f[v-cost]+weight
+    f[v] = max{f[v], f[v-cost]+weight
 }
 
 multiple_pack(cost, weight, amount)
